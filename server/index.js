@@ -1,8 +1,8 @@
 
 const express = require('express');
+const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const app = express();
 
 // Middleware
 
@@ -13,7 +13,7 @@ const posts = require('./routes/api/posts')
 
 app.use('/api/posts', posts)
 
-const port = process.env.PORT || 5000
+const port = process.env.PORT || 8080
 
 
 

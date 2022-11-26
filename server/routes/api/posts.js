@@ -5,6 +5,7 @@ const router = express.Router()
 
 //Get posts
 router.post('/clientData', async (req, res) => {
+    console.log('test');
     let data = req.body
     console.log('request', req.body)
     const agg = [
@@ -141,7 +142,8 @@ router.post('/createNewClient', async (req, res) => {
 
 async function loadPostsCollection() {
     const client = await mongodb.MongoClient.connect(
-        'mongodb+srv://jmm2389:Machines1!@cluster0.lm2at.mongodb.net', {
+    'mongodb+srv://newUser:AppleSandwhich@cluster0.lm2at.mongodb.net/?retryWrites=true&w=majority'
+     , {
         useNewUrlParser: true
     });
 
