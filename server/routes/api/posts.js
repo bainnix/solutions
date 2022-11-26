@@ -76,7 +76,7 @@ router.post('/createNewClient', async (req, res) => {
                 relationshipSubscriber: data.clientRelationshipSubscriber 
             }
                 ,
-                 profilePicture: "jpg",
+                 profilePicture: data.profilePhoto,
                  activityLog: "",
                  emergencyContacts: { },
                  healthRecords: {
