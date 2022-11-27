@@ -18,8 +18,7 @@
         navigate(event, item){
               this.$router.push(`/${item}`)
             },
-    }
- 
+    } 
  }
  </script>
  

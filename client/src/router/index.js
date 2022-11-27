@@ -3,6 +3,7 @@ import CreateClient from '@/views/CreateClient.vue'
 import SiteLogin from '@/views/SiteLogin.vue'
 import ClientLookUp from "@/components/ClientLookUp.vue"
 import CreateDocument from "@/views/CreateDocument.vue"
+import CreatePatient from "@/views/CreatePatient.vue"
 const routes = [
     {
         path:'/',
@@ -14,6 +15,12 @@ const routes = [
         path:'/CreateClient',
         name: 'CreateClient',
         component: CreateClient
+
+    },
+    {
+        path:'/CreatePatient',
+        name: 'CreatePatient',
+        component: CreatePatient
 
     },
     {

@@ -1,68 +1,81 @@
 <template>
-  <div class="container">
-    <div class="nav-bar-links">
-      <div @click="showDropDown=!showDropDown"> 
-        <div>Client</div>
-        <MenuDropDown class="dropDown" :dropDownData="clientDropDown" :showDropDown="showDropDown"/>
-      </div>
-
-    </div>
-      <h4 class="nav-bar-links" @click="navigateCreateClient">Client</h4>
-      <h4 class="nav-bar-links" @click="navigateCreateDocument">Create Document</h4>
- 
-  </div>
+	<div class="container">
+		<div class="nav-bar-links">
+			<div @click="showDropDownClient = !showDropDownClient">
+				<div>Client</div>
+				<MenuDropDown
+					class="dropDown"
+					:dropDownData="clientDropDown"
+					:showDropDown="showDropDownClient"
+				/>
+			</div>
+		</div>
+		<div class="nav-bar-links">
+			<div @click="showDropDownCreateUser = !showDropDownCreateUser">
+				<div>Create User</div>
+				<MenuDropDown
+					class="dropDown"
+					:dropDownData="createUser"
+					:showDropDown="showDropDownCreateUser"
+				/>
+			</div>
+		</div>
+		<h4 class="nav-bar-links" @click="navigateCreateDocument">
+			Create Document
+		</h4>
+	</div>
 </template>
 
 <script>
-import MenuDropDown from '@/components/DropDown.vue'
+import MenuDropDown from "@/components/DropDown.vue";
 export default {
-  data(){
-    return{
-      showDropDown: false,
-      clientDropDown:{
-        ClientLookUp: "ClientLookUp",
-        CreateClient: "CreateClient"
-      }
-
-    }
-  },  
-    methods:{
-
-        navigateClientLookUp(){
-              this.$router.push("/ClientLookUp")
-            },
-            navigateCreateClient(){
-              this.$router.push("/CreateClient")
-            },
-            navigateCreateDocument(){
-              this.$router.push("/CreateDocument")
-            }
-
-    },
-    components:{
-
-      MenuDropDown
-      
-    }
-
-}
+	data() {
+		return {
+			showDropDownClient: false,
+			showDropDownCreateUser: false,
+			clientDropDown: {
+				ClientLookUp: "ClientLookUp",
+			},
+			createUser: {
+				CreateClient: "CreateClient",
+				CreatePatient: "CreatePatient",
+			},
+		};
+	},
+	methods: {
+		navigateClientLookUp() {
+			this.$router.push("/ClientLookUp");
+		},
+		navigateCreateClient() {
+			this.$router.push("/CreateClient");
+		},
+		navigateCreateDocument() {
+			this.$router.push("/CreateDocument");
+		},
+		navigateCreatePatient() {
+			this.$router.push("/CreatePatient");
+		},
+	},
+	components: {
+		MenuDropDown,
+	},
+};
 </script>
 
-<style scoped >
-    .container{
-        width: 100%;
-        background-color: black;
-        color: whitesmoke;   
-        text-align: left;
-        padding: 1rem;
-        display: flex;
-        justify-content: space-around;
-    }
-    .nav-bar-links:hover{
-        cursor: pointer;
-    }
-    .dropDown{
-      position: absolute;
-    }
-    
+<style scoped>
+.container {
+	width: 100%;
+	background-color: black;
+	color: whitesmoke;
+	text-align: left;
+	padding: 1rem;
+	display: flex;
+	justify-content: space-around;
+}
+.nav-bar-links:hover {
+	cursor: pointer;
+}
+.dropDown {
+	position: absolute;
+}
 </style>

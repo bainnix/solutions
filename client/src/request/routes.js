@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 
-export async function getClientData(data={}){
+export async function getPatientData(data={}){
     let jsonData = JSON.stringify(data)
     console.log(jsonData)
     let headersList = {
@@ -9,7 +9,7 @@ export async function getClientData(data={}){
         "Content-Type": "application/json"
     };
     let reqOptions ={
-        url: 'http://localhost:8080/api/posts/clientData',
+        url: 'http://localhost:8080/api/posts/patientData',
         method: "POST",
         headers: headersList,
         data: jsonData
@@ -20,6 +20,24 @@ export async function getClientData(data={}){
     return responseData;
 }   
 
+export async function createNewPatient(data = {}){
+    console.log(data)
+    let jsonData = JSON.stringify(data)
+    let headersList = {
+        Accept: "*/*",
+        "Content-Type": "application/json"
+    };
+    let reqOptions ={
+        url: 'http://localhost:8080/api/posts/createNewPatient',
+        method: "POST",
+        headers: headersList,
+        data: jsonData
+    };
+    let responseData = await axios.request(reqOptions).then(function(response){
+        return response;
+    })
+    return responseData;
+}
 export async function createNewClient(data = {}){
     console.log(data)
     let jsonData = JSON.stringify(data)
@@ -40,7 +58,7 @@ export async function createNewClient(data = {}){
 }
 
 
-export async function getTotalNumberOfClients(data = {}){
+export async function getTotalNumberOfPatients(data = {}){
     let jsonData = JSON.stringify(data)
     let headersList = {
         Accept: "*/*",

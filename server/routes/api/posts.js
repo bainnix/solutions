@@ -4,77 +4,55 @@ const mongodb = require('mongodb')
 const router = express.Router()
 
 //Get posts
-router.post('/clientData', async (req, res) => {
+router.post('/patientData', async (req, res) => {
     console.log('test');
     let data = req.body
     console.log('request', req.body)
     const agg = [
         {
             '$match': {
-                'clientID': data.clientID
+                'patientID': data.patientID
             }
         },
    ]
-    const posts = await loadPostsCollection();
+    const posts = await patientCollection();
     posts.aggregate(agg).toArray(function (err, result) {
         res.json({
-            client: result
+            patient: result
         })
     })
 
 })
-
-router.post('/totalNumberOfClients', async (req, res) => {
-    
-  
-    const agg = [
-        {
-            '$match': {
-                
-            }
-        },
-   ]
-    const posts = await loadPostsCollection();
-    posts.aggregate(agg).toArray(function (err, result) {
-        res.json({
-            client: result
-        })
-    })
-
-})
-
-
-
 
 //add posts
-router.post('/createNewClient', async (req, res) => {
+router.post('/createNewPatient', async (req, res) => {
     let data = req.body
-    let newClient = {
-        clientDemographic: {
-            clientName: {
+    let newPatient = {
+        patientDemographic: {
+            patientName: {
                 firstName: data.firstName ,
                 lastName: data.lastName,
                 middleName: data.middleName
              }, 
-             DOB: data.clientDOB 
+             DOB: data.patientDOB 
                 , 
-            email: data.clientEmail, 
-            phone: data.clientPhone, 
+            email: data.patientEmail, 
+            phone: data.patientPhone, 
             guardians: [
                  { 
-                firstName: data.clientGuardianFirstName,
-                middleName: data.clientGuardianMiddleName, 
-                lastName: data.clientGuardianLastName
+                firstName: data.patientGuardianFirstName,
+                middleName: data.patientGuardianMiddleName, 
+                lastName: data.patientGuardianLastName
              }, 
             ],
             address: {
-                 street: data.clientStreet, 
-                 city: data.clientCity,
-                 state: data.clientState ,
-                 zip: data.clientZip
+                 street: data.patientStreet, 
+                 city: data.patientCity,
+                 state: data.patientState ,
+                 zip: data.patientZip
                 },                 
-                insuredID: data.clientInsuredID, 
-                relationshipSubscriber: data.clientRelationshipSubscriber 
+                insuredID: data.patientInsuredID, 
+                relationshipSubscriber: data.patientRelationshipSubscriber 
             }
                 ,
                  profilePicture: data.profilePhoto,
@@ -82,46 +60,46 @@ router.post('/createNewClient', async (req, res) => {
                  emergencyContacts: { },
                  healthRecords: {
                       allergies: 
-                      [data.clientAllergies], 
+                      [data.patientAllergies], 
                       medications: [
-                          data.clientMedication
+                          data.patientMedication
                         ],
-                    menstruation: data.clientMenstruation,
+                    menstruation: data.patientMenstruation,
                     diet: [
-                        data.clientDiet
+                        data.patientDiet
                     ] 
                 }, 
                 payors: {
                     insuranceInformation: {
-                        payor: data.clientPayorName,
-                        payorResponsibility: data.clientPayorResponsibility,
-                        clientResponsibility: data.clientResponsibility, 
+                        payor: data.patientPayorName,
+                        payorResponsibility: data.patientPayorResponsibility,
+                        patientResponsibility: data.patientResponsibility, 
                         coverageDates: { 
-                            startDate: data.clientInsuranceCoverageStartDate, 
-                            endDate: data.clientInsuranceCoverageEndDate
+                            startDate: data.patientInsuranceCoverageStartDate, 
+                            endDate: data.patientInsuranceCoverageEndDate
                          }, 
                          insuranceContactPerson: {
-                              firstName: data.clientInsuranceContactFirstName,
-                              lastName: data.clientInsuranceContactLastName
+                              firstName: data.patientInsuranceContactFirstName,
+                              lastName: data.patientInsuranceContactLastName
                              },
-                             insuranceStatus: data.clientInsuranceStatus
+                             insuranceStatus: data.patientInsuranceStatus
                              },
                             subscriberInformation: {
                                  name: { 
-                                     firstName: data.clientSubscriberFirstName,
-                                     lastName:  data.clientSubscriberLastName
+                                     firstName: data.patientSubscriberFirstName,
+                                     lastName:  data.patientSubscriberLastName
                                      }, 
-                                     DOB: data.clientSubscriberDOB,
+                                     DOB: data.patientSubscriberDOB,
                                          
-                                        gender: data.clientSubscriberGender, 
-                                        policy: data.clientPolicy, 
-                                        group: data.clientGroup, 
-                                        insuranceID: data.clientSubscriberInsuranceID, 
+                                        gender: data.patientSubscriberGender, 
+                                        policy: data.patientPolicy, 
+                                        group: data.patientGroup, 
+                                        insuranceID: data.patientSubscriberInsuranceID, 
                                         address: { 
-                                            street: data.clientStreetSubscriber,
-                                            city: data.clientCitySubscriber,
-                                            state: data.clientStateSubscriber, 
-                                            zip: data.clientZipSubscriber 
+                                            street: data.patientStreetSubscriber,
+                                            city: data.patientCitySubscriber,
+                                            state: data.patientStateSubscriber, 
+                                            zip: data.patientZipSubscriber 
                                         }
                                          } 
                                         }, 
@@ -129,18 +107,24 @@ router.post('/createNewClient', async (req, res) => {
                                             upcomingAppointment: "04-28-22",
                                             pastAppointment: ["04-22-22"] 
                                         }, 
-                                        clientID: data.clientID
+                                        patientID: data.patientID
                                     }
-    const db = await loadPostsCollection();
-    db.insertOne(newClient)
+    const db = await patientCollection();
+    db.insertOne(newPatient)
 
 })
 
+router.post('/createNewClient', async (req, res) => {
+    let data = req.body
+    console.log('new client', data);
+    const db = await clientCollection();
+    db.insertOne(data)
 
+})
 
 //delete posts
 
-async function loadPostsCollection() {
+async function clientCollection() {
     const client = await mongodb.MongoClient.connect(
     'mongodb+srv://newUser:AppleSandwhich@cluster0.lm2at.mongodb.net/?retryWrites=true&w=majority'
      , {
@@ -148,6 +132,16 @@ async function loadPostsCollection() {
     });
 
     return client.db('ABA').collection('Client')
+}
+
+async function patientCollection() {
+    const client = await mongodb.MongoClient.connect(
+    'mongodb+srv://newUser:AppleSandwhich@cluster0.lm2at.mongodb.net/?retryWrites=true&w=majority'
+     , {
+        useNewUrlParser: true
+    });
+
+    return client.db('ABA').collection('Patient')
 }
 
 module.exports = router

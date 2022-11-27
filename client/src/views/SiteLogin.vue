@@ -12,7 +12,7 @@ export default {
   
   methods:{
     request_login(){
-      this.$router.push("/CreateClient")
+      this.$router.push("/createClient")
     }
   }
 }
@@ -21,5 +21,3 @@ export default {
 <style scoped>
 
 </style>>
-
-
