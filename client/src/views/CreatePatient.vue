@@ -58,6 +58,13 @@ import { createNewPatient } from "@/request/routes.js";
 import AppTopBar from "@/components/AppTopBar.vue";
 import Calendar from "primevue/calendar";
 import ImportFile from "@/components/ImportFile.vue";
+import {Patient,
+	PatientDemographic,
+	Guardian,
+	Insurance,
+	EmergencyContact,
+	HealthRecords,} from "@/data/Patient"
+
 export default {
   watch:{
         uploadedPhoto(newval, oldval){
@@ -121,6 +128,7 @@ export default {
   methods: {
     addNewPatient: async function () {
       this.totalPatientsArray.push('new')
+      let patient = new Patient()
       let newPatient = await createNewPatient({
         firstName: this.createPatientFirstName,
         lastName: this.createPatientLastName,
