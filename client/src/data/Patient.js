@@ -5,18 +5,30 @@ class Patient {
 		this.emergencyContacts = [];
 		this.healthRecords = new HealthRecords();
 		this.guardian = [];
-		this.insurance = new Insurance();
+		this.insurance = null
 		this.patientID = patientID;
 		this.profilePicture = null;
-		this.schedule = new Schedule();
-		this.patientDemographic = new PatientDemographic();
+		this.schedule = new Schedule()
+		this.patientDemographic = null
 	}
-	addEmergencyContact(){
-		let newEmergencyContact = new EmergencyContact()
+	addEmergencyContact(firstName, lastName, middleName, DOB, street, aptNumber, city, state, zip, phone, email){
+		let newEmergencyContact = new EmergencyContact(firstName, lastName, middleName, DOB, street, aptNumber, city, state, zip, phone, email)
 		this.emergencyContacts.push(newEmergencyContact)
 	}
 	addProfilePicture(profilePicture){
 		this.profilePicture = profilePicture
+	}
+	addGuardian(firstName, lastName, middleName, DOB, street, aptNumber, city, state, zip, phone, email){
+		let newGuardian = new Guardian(firstName, lastName, middleName, DOB, street, aptNumber, city, state, zip, phone, email)
+		this.guardian.push(newGuardian)
+	}
+	addInsurance(payorResponsibility, clientResponsibility, payor, startDate, expirationDate, firstName, lastName, phone){
+		let newInsurance = new Insurance(payorResponsibility, clientResponsibility, payor, startDate, expirationDate, firstName, lastName, phone)
+		this.insurance = newInsurance
+	}	
+	addPatientDemographic(firstName, lastName, middleName, DOB, street, aptNumber, city, state, zip, phone, email){
+		let patientDemographic = new PatientDemographic(firstName, lastName, middleName, DOB, street, aptNumber, city, state, zip, phone, email)
+		this.patientDemographic = patientDemographic
 	}
 }
 
@@ -57,10 +69,19 @@ class HealthRecords {
 		this.diet = [];
 		this.menstration = null;
 	}
-}
+	addAllergy(allergy){
+		this.allergies.push(allergy)
+	}
+	addMedication(medication){
+		this.medications.push(medication)
+	}
+	addDiet(diet){
+		this.diet.push(diet)
+	}
+}	
 
 class Insurance {
-	constructor(payorResponsibility, clientResponsibility, payor, startDate, expirationDate, firstName, lastName, phone, ) {
+	constructor(payorResponsibility, clientResponsibility, payor, startDate, expirationDate, firstName, lastName, phone) {
 		this.clientResponsibility = clientResponsibility;
 		this.contact = {
 			contactFirstName: firstName,
@@ -73,12 +94,16 @@ class Insurance {
 		}
 		this.payor = payor;
 		this.payorResponsibility = payorResponsibility;
-		this.subscriberInformation = new Subscriber()
+		this.subscriberInformation = null
+	}
+	addSubscriberInformation(insuranceID, groupID, firstName, lastName, gender, policy, street, city, state, zip, email ){
+		let newSubscriberInformation = new Subscriber(insuranceID, groupID, firstName, lastName, gender, policy, street, city, state, zip, email)
+		this.subscriberInformation = newSubscriberInformation
 	}
 }
 
 class PatientDemographic {
-	constructor() {
+	constructor(firstName, lastName, middleName, DOB, street, aptNumber, city, state, zip, phone, email) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.middleName = middleName;
@@ -94,16 +119,23 @@ class PatientDemographic {
 }
 class Schedule {
     constructor(){
-        this.upcomingAppointmentDate = upcomingAppointment;
+        this.upcomingAppointment = null;
         this.pastAppointmentDate = []
     }
+	setUpcomingAppointment(newAppointment){
+		if(this.upcomingAppointment){
+			this.pastAppointmentDate.push(this.upcomingAppointment)
+		}
+		this.upcomingAppointment = newAppointment
+	}
 }
 class Subscriber {
-	constructor(){
+	constructor(insuranceID, groupID, firstName, lastName, middleName, gender, policy, street, city, state, zip ){
 				this.insuranceID = insuranceID,
 				this.groupID = groupID,
-				this.subscriberFirstName = subscriberFirstName,
-				this.subscriberLastName = subscriberLastName,
+				this.firstName = firstName,
+				this.lastName = lastName,
+				this.middleName = middleName
 				this.gender = gender,
 				this.policy = policy,
 				this.address = {
@@ -111,7 +143,7 @@ class Subscriber {
 					city: city,
 					state: state,
 					zip: zip,
-				},
+				}
 
 	}
 }
