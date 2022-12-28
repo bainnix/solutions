@@ -4,6 +4,14 @@ import SiteLogin from '@/views/SiteLogin.vue'
 import ClientLookUp from "@/components/ClientLookUp.vue"
 import CreateDocument from "@/views/CreateDocument.vue"
 import CreatePatient from "@/views/CreatePatient.vue"
+import CreateInternalUser from "@/views/CreateInternalUser.vue"
+import UserProfile from "@/views/UserProfile.vue"
+import CalendarScheduler from "@/views/CalendarScheduler.vue"
+
+
+
+
+
 const routes = [
     {
         path:'/',
@@ -34,6 +42,22 @@ const routes = [
         name: 'CreateDocument',
         component: CreateDocument
 
+    },
+    {
+        path:'/CreateInternalUser',
+        name: 'CreateInternalUser',
+        component: CreateInternalUser
+
+    },
+    {
+        path:'/UserProfile',
+        name: 'UserProfile',
+        component: UserProfile
+    },
+    {
+        path:'/CalendarScheduler',
+        name: 'CalendarScheduler',
+        component: CalendarScheduler
     },
 ]
 

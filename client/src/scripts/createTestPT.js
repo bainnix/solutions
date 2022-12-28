@@ -1,7 +1,7 @@
 let {
 	Patient,
 } = require("C:/Users/justi/OneDrive/Desktop/Solutions/client/src/data/Patient.js")
-const fs = require("fs")
+const fs = require("fs")  
 
 
 
@@ -21,5 +21,5 @@ newPatient.schedule.setUpcomingAppointment(Date.now())
 newPatient.addPatientDemographic('Justin', "Morales", 'Matthew', Date.now(), 'Male', '560 bern ct', null, 'deltona', 'fl', 32738, 'jmm2389@gmail.com')
 
 
-fs.writeFileSync("new_patient.json",JSON.stringify(newPatient, null, 2))
+fs.writeFileSync("C:/Users/justi/OneDrive/Desktop/Solutions/client/src/scripts/new_patient.json",JSON.stringify(newPatient, null, 2))
 console.log('new patient', newPatient);

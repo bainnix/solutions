@@ -2,73 +2,63 @@
 	<div>
 		<AppTopBar />
 		<div>new client</div>
-		<input v-model="createClientFirstName" placeholder="First Name" />
-		<input v-model="createClientLastName" placeholder="Last Name" />
-		<input v-model="createClientMiddleName" placeholder="Middle Name" />
-		<Calendar v-model="createClientDOB" placeholder="DOB" />
-		<input v-model="createClientEmail" placeholder="Email" />
-		<input v-model="createClientPassword" placeholder="Password" />
-		<input v-model="createClientPhone" placeholder="Phone" />
-		<input v-model="createClientStreet" placeholder="Street Name" />
-		<input v-model="createClientCity" placeholder="City" />
-		<input v-model="createClientState" placeholder="State" />
-		<input v-model="createClientZip" placeholder="Zip" />
-		<input v-model="createPatientFirstName" placeholder="Patient First Name" />
-		<input v-model="createPatientLastName" placeholder="Patient Last Name" />
+		<input v-model="client.firstName" placeholder="First Name" />
+		<input v-model="client.lastName" placeholder="Last Name" />
+		<input v-model="client.middleName" placeholder="Middle Name" />
+		<input v-model="client.DOB" placeholder="DOB" />
+		<input v-model="client.email" placeholder="Email" />
+		<input type="password" v-model="client.password" placeholder="Password" />
+		<input v-model="client.phone" placeholder="Phone" />
+		<input v-model="client.street" placeholder="Street Name" />
+		<input v-model="client.city" placeholder="City" />
+		<input v-model="client.state" placeholder="State" />
+		<input v-model="client.zip" placeholder="Zip" />
+		<input v-model="client.patient.firstName" placeholder="Patient First Name" />
+		<input v-model="client.patient.lastName" placeholder="Patient Last Name" />
 		<input
-			v-model="createPatientMiddleName"
+			v-model="client.patient.middleName"
 			placeholder="Patient Middle Name"
 		/>
-		<Calendar v-model="createPatientDOB" placeholder="Patient DOB" />
+		<input v-model="client.patient.DOB" placeholder="Patient DOB" />
+		<input v-model="client.patient.ID" placeholder="Patient ID" />
 		<button @click="addNewClient">Create New Patient</button>
-    <div>{{newClient}}</div>
+		<div>{{ newClient }}</div>
 	</div>
 </template>
 
 <script>
 import AppTopBar from "@/components/AppTopBar.vue";
-import {createNewClient} from "@/request/routes.js"
+import { createNewClient } from "@/request/client.js";
 export default {
 	data() {
 		return {
-			createClientFirstName: null,
-			createClientLastName: null,
-			createClientMiddleName: null,
-			createClientDOB: null,
-			createClientEmail: null,
-			createClientPassword: null,
-			createClientPhone: null,
-			createClientStreet: null,
-			createClientCity: null,
-			createClientState: null,
-			createClientZip: null,
-			createPatientFirstName: null,
-			createPatientLastName: null,
-			createPatientMiddleName: null,
-			createPatientDOB: null,
-      newClient: null,
+			client: {
+				firstName: null,
+				lastName: null,
+				middleName: null,
+				DOB: null,
+				email: null,
+				password: null,
+				phone: null,
+				street: null,
+				city: null,
+				state: null,
+				zip: null,
+				patient:{
+					firstName: null,
+					lastName: null,
+					middleName: null,
+					DOB: null,
+					ID: null
+				},
+			},
+			newClient: null,
 		};
 	},
 	methods: {
 		addNewClient: async function () {
-			let newClient = await createNewClient({
-				ClientFirstName: this.createClientFirstName,
-				ClientLastName: this.createClientLastName,
-				ClientMiddleName: this.createClientMiddleName,
-				ClientDOB: this.createClientDOB,
-				ClientEmail: this.createClientEmail,
-				ClientPassword: this.createClientPassword,
-				ClientPhone: this.createClientPhone,
-				ClientStreet: this.createClientStreet,
-				ClientCity: this.createClientCity,
-				ClientState: this.createClientState,
-				ClientZip: this.createClientZip,
-				PatientFirstName: this.createPatientFirstName,
-				PatientLastName: this.createPatientLastName,
-				PatientMiddleName: this.createPatientMiddleName,
-				PatientDOB: this.createPatientDOB,
-			});
-      this.newClient = newClient
+			let newClient = await createNewClient(this.client);
+			this.newClient = newClient;
 		},
 	},
 	components: {

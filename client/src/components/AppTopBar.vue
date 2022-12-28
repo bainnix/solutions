@@ -20,14 +20,17 @@
 				/>
 			</div>
 		</div>
-		<h4 class="nav-bar-links" @click="navigateCreateDocument">
+		<div class="nav-bar-links" @click="navigateCreateDocument">
 			Create Document
-		</h4>
+		</div>
+		<div class="nav-bar-links" @click="navigateProfile">
+			Profile
+		</div>
 	</div>
 </template>
 
 <script>
-import MenuDropDown from "@/components/DropDown.vue";
+import MenuDropDown from "@/components/MenuDropDown.vue";
 export default {
 	data() {
 		return {
@@ -39,6 +42,7 @@ export default {
 			createUser: {
 				CreateClient: "CreateClient",
 				CreatePatient: "CreatePatient",
+				CreateInternalUser: "CreateInternalUser",
 			},
 		};
 	},
@@ -54,6 +58,12 @@ export default {
 		},
 		navigateCreatePatient() {
 			this.$router.push("/CreatePatient");
+		},
+		navigateCreateInternalUser() {
+			this.$router.push("/CreateInternalUser");
+		},
+		navigateProfile() {
+			this.$router.push("/UserProfile");
 		},
 	},
 	components: {

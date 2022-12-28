@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { getPatientData } from "@/request/routes.js";
+// import { getPatientData } from "@/request/routes.js";
 import AppTopBar from "@/components/AppTopBar.vue";
 
 export default {
@@ -29,19 +29,19 @@ export default {
       
     },
     methods:{
-         retrievePatient: async function () {
+  //        retrievePatient: async function () {
       
-      let patientData = await getPatientData({
-        patientID: this.searchPatientID,
-      });
-      this.patientInfo = patientData
-      console.log('patient info ',this.patientInfo)
-      this.searchedPatientFirstName = patientData.data.patient[0].patientDemographic.patientName.firstName;
-      this.searchedPatientLastName = patientData.data.patient[0].patientDemographic.patientName.lastName;
-      this.searchedPatientMiddleName = patientData.data.patient[0].patientDemographic.patientName.middleName;
-      this.searchedPatientDOB = patientData.data.patient[0].patientDemographic.DOB.slice(0,10);
-      this.uploadedPhoto = patientData.data.patient[0].profilePicture;
-   },
+  //     let patientData = await getPatientData({
+  //       patientID: this.searchPatientID,
+  //     });
+  //     this.patientInfo = patientData
+  //     console.log('patient info ',this.patientInfo)
+  //     this.searchedPatientFirstName = patientData.data.patient[0].patientDemographic.patientName.firstName;
+  //     this.searchedPatientLastName = patientData.data.patient[0].patientDemographic.patientName.lastName;
+  //     this.searchedPatientMiddleName = patientData.data.patient[0].patientDemographic.patientName.middleName;
+  //     this.searchedPatientDOB = patientData.data.patient[0].patientDemographic.DOB.slice(0,10);
+  //     this.uploadedPhoto = patientData.data.patient[0].profilePicture;
+  //  },
     },
     components:{
       AppTopBar
