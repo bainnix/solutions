@@ -22,7 +22,7 @@
  }
  </script>
  
- <style>
+ <style scoped>
  .dropDown{
     z-index: 100;
     background: red;

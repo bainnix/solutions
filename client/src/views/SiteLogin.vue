@@ -38,7 +38,7 @@ export default {
           email: decode.email
         }
         writeCookie(data, {d: 1})
-        this.$router.push("/createClient") 
+        this.$router.push("/HomePage") 
       }
     }
   }

@@ -1,11 +1,21 @@
 function uuid(){
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c){
+    return 'xxxx-xxxx-4xx-yxxx-xxxx'.replace(/[xy]/g, function(c){
         let r = (Math.random()* 16) | 0,
         v = c == "x" ? r : (r & 0x3) | 0x8;
         return v.toString(16)
     })
 }
 class User {
+    static hydrate(data){  
+        let userData = data.data.result     
+        let address = userData.address
+        userData.street = address.street
+        userData.city = address.city
+        userData.state = address.state
+        userData.zip = address.zip
+        let hydratedUser = new User(userData)
+        return hydratedUser
+    }
     constructor(user){
         this.firstName = user.firstName;
         this.middleName = user.middleName;
@@ -36,6 +46,10 @@ class User {
         let newSupervisor = new Supervisor(data);
         let id = newSupervisor.id
         this.supervisors[id] = newSupervisor
+    }
+    getFullName(){
+        let fullName = this.firstName + " " + this.lastName
+        return fullName
     }
 
 }

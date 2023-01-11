@@ -8,7 +8,7 @@
     >
       <span>{{ label }}</span>
    
-      <EventPopUp :day="day.date" />
+      <EventPopUp :day="day.date" :attendeeData="attendeeData" />
       
     </li>
   </template>

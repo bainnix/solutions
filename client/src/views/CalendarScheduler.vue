@@ -22,9 +22,9 @@ export default {
 
   mounted: async function(){
     let email = this.email
-    console.log(email);
     let attendeeData = await appointmentAttendee(email)
-    this.attendeeData = attendeeData
+    this.attendeeData = attendeeData.data.result
+    console.log(this.attendeeData);
   },
 
   components: {

@@ -7,10 +7,8 @@ import CreatePatient from "@/views/CreatePatient.vue"
 import CreateInternalUser from "@/views/CreateInternalUser.vue"
 import UserProfile from "@/views/UserProfile.vue"
 import CalendarScheduler from "@/views/CalendarScheduler.vue"
-
-
-
-
+import HomePage from "@/views/HomePage.vue"
+import CreateLessonPlan from "@/views/CreateLessonPlan.vue"
 
 const routes = [
     {
@@ -59,6 +57,18 @@ const routes = [
         name: 'CalendarScheduler',
         component: CalendarScheduler
     },
+    {
+        path: '/HomePage',
+        name: 'HomePage',
+        component: HomePage
+
+    },
+    {
+        path: '/CreateLessonPlan',
+        name: 'CreateLessonPlan',
+        component: CreateLessonPlan
+
+    }
 ]
 
 const router = createRouter({

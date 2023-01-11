@@ -51,3 +51,19 @@ export async function appointmentAttendee(data = null) {
 	});
 	return responseData;
 }
+
+export async function userProfile(data = null) {
+	let headersList = {
+		Accept: "*/*",
+		"Content-Type": "application/json",
+	};
+	let reqOptions = {
+		url: `http://localhost:8080/users/userProfile?data=${data}`,
+		method: "GET",
+		headers: headersList,
+	};
+	let responseData = await axios.request(reqOptions).then(function (response) {
+		return response;
+	});
+	return responseData;
+}
