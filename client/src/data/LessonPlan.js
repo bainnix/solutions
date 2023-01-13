@@ -8,6 +8,22 @@ function uuid() {
 }
 
 class LessonPlan {
+	static hydrate(lessonPlanData) {
+		let newLessonPlan = new LessonPlan(
+			lessonPlanData.name,
+			lessonPlanData.user
+		);
+		newLessonPlan.id = lessonPlanData.id;
+		newLessonPlan.durationTrackers = lessonPlanData.durationTrackers;
+		newLessonPlan.frequencyTrackers = lessonPlanData.frequencyTrackers;
+		for (let question in lessonPlanData.questions) {
+			let hydratedQuestion = Question.hydrate(question);
+			newLessonPlan.push(hydratedQuestion);
+		}
+
+		return newLessonPlan;
+	}
+
 	static DefaultQuestion = {
 		DEFUALT_0: "Question 0",
 		DEFUALT_1: "Question 1",
@@ -18,16 +34,36 @@ class LessonPlan {
 	static NewQuestion = {
 		NEW_QUESTION: "New Question",
 	};
+	static DefaultTracker = {
+		DURATION: "Duration Tracker",
+		FREQUENCY: "Frequency Tracker",
+	};
 	constructor(name, user) {
 		this.id = uuid();
 		this.name = name;
 		this.user = user;
+		this.durationTrackers = [];
+		this.frequencyTrackers = [];
 		let questions = LessonPlan.DefaultQuestion;
 		this.questions = [];
 		for (let question in questions) {
 			let newQuestion = new Question(questions[question]);
 			this.questions.push(newQuestion);
 		}
+	}
+	addFrequencyTracker() {
+		let frequencyTrackers = this.frequencyTrackers;
+		let newFrequencyTracker = new FrequencyTracker(
+			LessonPlan.DefaultTracker.FREQUENCY
+		);
+		frequencyTrackers.push(newFrequencyTracker);
+	}
+	addDurationTracker() {
+		let durationTrackers = this.durationTrackers;
+		let newDurationTracker = new DurationTracker(
+			LessonPlan.DefaultTracker.DURATION
+		);
+		durationTrackers.push(newDurationTracker);
 	}
 	addQuestion() {
 		let newQuestion = new Question(LessonPlan.NewQuestion.NEW_QUESTION);
@@ -38,19 +74,19 @@ class LessonPlan {
 	}
 }
 class Question {
-    static hydrate(questionData){
-        let questionText = questionData.text
-        let questionType = questionData.type
-        let choices = questionData.choices
-        let newQuestion = new Question(questionText, questionType)
-        let newChoices = [];
+	static hydrate(questionData) {
+		let questionText = questionData.text;
+		let questionType = questionData.type;
+		let choices = questionData.choices;
+		let newQuestion = new Question(questionText, questionType);
+		let newChoices = [];
 		for (let choice in choices) {
-			let newChoice = new Choice(choices[choice].text);
+			let newChoice = Choice.hydrate(choice.text)
 			newChoices.push(newChoice);
 		}
-        newQuestion.choices = newChoices
-        return newQuestion
-    }
+		newQuestion.choices = newChoices;
+		return newQuestion;
+	}
 	static DefaultChoice = {
 		DEFUALT_1: "Choice 1",
 		DEFUALT_2: "Choice 2",
@@ -63,14 +99,16 @@ class Question {
 		FREEANSWER: "Free Answer",
 	};
 	constructor(text, type = Question.QuestionType.BOOLEAN) {
-		this.text = text;
-		this.type = type;
 		let choices = Question.DefaultChoice;
 		this.choices = [];
 		for (let choice in choices) {
 			let newChoice = new Choice(choices[choice]);
 			this.choices.push(newChoice);
 		}
+		this.text = text;
+		this.type = type;
+		this.numberPresented = 0;
+		this.numberCorrect = 0;
 	}
 	addChoices(choice) {
 		let choices = this.choices;
@@ -86,25 +124,47 @@ class Question {
 	}
 }
 class Choice {
-    static hydrate(choiceData){
-        let choiceText = choiceData.text        
-        let newChoice = new Choice(choiceText)
-        return newChoice
-    }
-	constructor(text) {
+	static hydrate(choiceData) {
+		let choiceText = choiceData?.text;
+		let newChoice = new Choice(choiceText);
+		return newChoice;
+	}
+	constructor(text = null) {
 		this.text = text;
-		this.type = null;
+		this.type = null;				
 	}
 }
 
-class StopWatch {}
+class DurationTracker {
+	constructor(name) {
+		this.name = name;
+		this.durationData = [];
+	}
+	addDurationData(duration){
+		let newDurationData = new DurationData(duration)
+		this.durationData.push(newDurationData)
+	}
+}
 
-class Clicker {}
+class DurationData{
+	constructor(duration){
+		this.duration = duration
+		this.count = 0
+	}
+}
+
+class FrequencyTracker {
+	constructor(name) {
+		this.name = name;
+		this.frequency = [];
+	}
+}
 
 module.exports = {
 	LessonPlan,
 	Question,
 	Choice,
-	StopWatch,
-	Clicker,
+	DurationTracker,
+	FrequencyTracker,
+	DurationData
 };

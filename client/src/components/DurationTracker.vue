@@ -1,6 +1,6 @@
 <template>
-	<div class="stopWatchContainer">
-        <div>Stop Watch</div>
+	<div class="durationContainer">
+        <div>{{name}}</div>
 		<div>{{ hours }}:{{ min }}:{{ seconds }}</div>
 		<button @click="startTimer">Start</button>
 		<button @click="stopTimer">Stop</button>
@@ -10,6 +10,7 @@
 
 <script>
 export default {
+	props:["name"],
 	data() {
 		return {
 			seconds: 0,
@@ -36,6 +37,7 @@ export default {
 			console.log("start");
 		},
 		stopTimer() {
+			
 			clearInterval(this.timer);
 		},
 		resetTimer() {
@@ -53,7 +55,7 @@ button {
 	padding: 5px;
 	margin: 20px !important;
 }
-.stopWatchContainer{
+.durationContainer{
     border: 2px solid red;
     width: fit-content;
 }

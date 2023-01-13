@@ -3,6 +3,7 @@
 		<div>Builder</div>
 		<button @click="createNewLessonPlan">Create New</button>
 		<button>Load Previous</button>
+        <button v-if="newLessonPlan">Save</button>
 		<div class="questionContainer">
 			<div v-if="newLessonPlan"> 
 				<template v-for="(question, index) of newLessonPlan.questions" :key="index">
@@ -13,7 +14,9 @@
 					</div>
 				</template>
                 <button @click="addQuestion">Add Question</button>
-			</div>
+                <button @click="addDurationTracker">Add Duration Tracker</button>
+                <button @click="addFrequencyCounter">Add Frequency Tracker</button>
+            </div>
 		</div>
 	</div>
 </template>
@@ -41,6 +44,14 @@ export default {
         editQuestion(index){
             this.$emit("editQuestion", index);
         },
+        addDurationTracker(){
+			this.newLessonPlan.addDurationTracker()
+			console.log(this.newLessonPlan);
+        },
+		addFrequencyCounter(){
+			this.newLessonPlan.addFrequencyTracker()
+			console.log(this.newLessonPlan);
+		}
 	},
 };
 </script>
