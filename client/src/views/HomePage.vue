@@ -2,10 +2,12 @@
 	<div>
 		<AppTopBar />
 		<div>Home Page</div>
-	</div>
+		<!-- <img :src="image" /> -->
+			</div>
 </template>
 
 <script>
+// import image from "@/assets/Google-logo.png"
 import AppTopBar from "@/components/AppTopBar.vue";
 import { userProfile } from "@/request/internalUsers";
 import { readCookie } from "@/utils/cookies";
@@ -18,6 +20,7 @@ export default {
 			email: cookies.email,
 			attendeeData: null,
 			profile: null,
+			// image: image,
 		};
 	},
 	mounted: async function () {

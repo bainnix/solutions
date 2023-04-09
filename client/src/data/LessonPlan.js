@@ -38,14 +38,27 @@ class LessonPlan {
 		DURATION: "Duration Tracker",
 		FREQUENCY: "Frequency Tracker",
 	};
-	constructor(name, user) {
+	static DefaultName = {
+		NEWLESSONPLAN: "New Lesson Plan"
+	}
+	constructor(name = LessonPlan.DefaultName.NEWLESSONPLAN, user, patient) {
 		this.id = uuid();
+		this.createdBy = user
+		this.lastEditedby = null
+		this.userEditHistory = []
 		this.name = name;
-		this.user = user;
+		this.date = Date.now()
+		this.patient = patient;
 		this.durationTrackers = [];
 		this.frequencyTrackers = [];
+		this.intervention = false;
 		let questions = LessonPlan.DefaultQuestion;
 		this.questions = [];
+		this.status = {
+			active: false,
+			activeStartDate: null,
+			activeEndDate: null
+		} 
 		for (let question in questions) {
 			let newQuestion = new Question(questions[question]);
 			this.questions.push(newQuestion);
@@ -71,6 +84,12 @@ class LessonPlan {
 	}
 	deleteQuestion(index) {
 		this.questions.splice(index, 1);
+	}
+	deleteFrequencyTracker(index) {
+		this.frequencyTrackers.splice(index, 1);
+	}
+	deleteDurationTracker(index) {
+		this.durationTrackers.splice(index, 1);
 	}
 }
 class Question {
@@ -100,15 +119,22 @@ class Question {
 	};
 	constructor(text, type = Question.QuestionType.BOOLEAN) {
 		let choices = Question.DefaultChoice;
-		this.choices = [];
+		this.choices = []
+		this.choicesBaseline = [];
+		this.choicesIntervention = [];
 		for (let choice in choices) {
 			let newChoice = new Choice(choices[choice]);
 			this.choices.push(newChoice);
 		}
 		this.text = text;
 		this.type = type;
-		this.numberPresented = 0;
-		this.numberCorrect = 0;
+		this.intervention = false
+		this.recordedDataBaseline = []
+		this.recordedDataIntervention = []
+		this.numberPresentedBaseline = 0;
+		this.numberCorrectBaseline = 0;
+		this.numberPresentedIntervention = 0;
+		this.numberCorrectIntervention = 0;
 	}
 	addChoices(choice) {
 		let choices = this.choices;
@@ -130,8 +156,10 @@ class Choice {
 		return newChoice;
 	}
 	constructor(text = null) {
+		this.id = uuid()
 		this.text = text;
-		this.type = null;				
+		this.type = null; 		
+		this.correct = false		
 	}
 }
 
@@ -139,26 +167,20 @@ class DurationTracker {
 	constructor(name) {
 		this.name = name;
 		this.durationData = [];
-	}
-	addDurationData(duration){
-		let newDurationData = new DurationData(duration)
-		this.durationData.push(newDurationData)
+		this.durationData = 0
 	}
 }
 
-class DurationData{
-	constructor(duration){
-		this.duration = duration
-		this.count = 0
-	}
-}
+
 
 class FrequencyTracker {
 	constructor(name) {
 		this.name = name;
 		this.frequency = [];
+		this.frequencyCount = 0
 	}
 }
+
 
 module.exports = {
 	LessonPlan,
@@ -166,5 +188,5 @@ module.exports = {
 	Choice,
 	DurationTracker,
 	FrequencyTracker,
-	DurationData
+	
 };

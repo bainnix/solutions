@@ -16,15 +16,20 @@
 					/>
 				</div>
 				<label for="question">Question Text</label>
-				<textarea v-model="question.text"></textarea>
+				<label for="correct">Choose Correct Answer</label>
+				<textarea name="question" v-model="question.text"></textarea>
 			</div>
 			<div
 				v-if="question.type == questionType.MUTLIPLE"
 				class="choiceEditorContainer"
 			>
 				<template v-for="choice of question.choices" :key="choice">
-					<label for="choice">Choice Text</label>
-					<textarea v-model="choice.text"></textarea>
+					<div>
+						<label for="choice">Choice Text</label>
+						<span :class="{ correctChoice: choice.correct  }" @click="choice.correct = !choice.correct" class="material-icons"> verified </span>
+						<div>{{ choice.correct }}</div>
+					</div>
+					<textarea class="choiceInput" v-model="choice.text"></textarea>
 				</template>
 			</div>
 			<div class="buttons">
@@ -41,7 +46,7 @@ import QuestionTypeDropDownVue from "./QuestionTypeDropDown.vue";
 export default {
 	props: ["lessonPlan", "index"],
 	data() {
-		let oldQuestion = Question.hydrate(this.lessonPlan.questions[this.index]);        
+		let oldQuestion = Question.hydrate(this.lessonPlan.questions[this.index]);
 		return {
 			question: this.lessonPlan.questions[this.index],
 			choices: this.lessonPlan.questions[this.index].choices,
@@ -49,7 +54,7 @@ export default {
 			questionType: Question.QuestionType,
 			showDropDown: false,
 			oldQuestion: oldQuestion,
-			
+			correct: null,
 		};
 	},
 	methods: {
@@ -57,9 +62,6 @@ export default {
 			this.$emit("closePopUp", this.question);
 		},
 		closePopUp() {
-            console.log("new", this.question);
-
-			console.log("old", this.oldQuestion);
 			this.$emit("closePopUp", this.oldQuestion);
 		},
 		updateQuestionType(updateQuestionType) {
@@ -81,8 +83,8 @@ export default {
 	left: 40%;
 	margin-left: -150px;
 	background: steelblue;
-	width: 500px;
-	height: 350px;
+	width: 600px;
+	height: 500px;
 	color: aliceblue;
 }
 .buttons {
@@ -94,6 +96,13 @@ export default {
 .questionEditorContainer {
 	display: flex;
 	flex-direction: column;
+}
+.choiceInput {
+	width: 300px;
+}
+
+.correctChoice{
+	color: lightcoral;
 }
 
 .title {

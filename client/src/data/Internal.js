@@ -14,6 +14,7 @@ class User {
         userData.state = address.state
         userData.zip = address.zip
         let hydratedUser = new User(userData)
+        hydratedUser.patients = userData.patients
         return hydratedUser
     }
     constructor(user){
@@ -33,14 +34,16 @@ class User {
             zip: user.zip
         }
         this.schedule = {};
-        this.clients = {};
+        this.patients = {};
+        this.patientGuardians = {}
         this.supervisors = {} 
-        this.employeeID = uuid()
+        this.employees = {}
+        this.id = uuid()
     }
-    addClient(data){
-        let newClient = new UserClients(data);
-        let id = newClient.id
-        this.clients[id] = newClient
+    addPatient(data){
+        let newPatient = new UserPatients(data);
+        let id = newPatient.id
+        this.patients[id] = newPatient
     }
     addSupervisor(data){
         let newSupervisor = new Supervisor(data);
@@ -54,12 +57,15 @@ class User {
 
 }
 
-class UserClients {
+class UserPatients {
     constructor(data){
         this.id = data.id;
         this.firstName = data.firstName;
         this.lastName = data.lastName;
         this.DOB = data.DOB
+        this.lessonPlans = []
+        this.collectedData = {}
+        this.activePlan = null        
     }
 }
 class Supervisor {
@@ -73,6 +79,6 @@ class Supervisor {
 
 module.exports = {
     User,
-    UserClients,
+    UserPatients,
     Supervisor
 }

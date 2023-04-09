@@ -9,6 +9,9 @@ import UserProfile from "@/views/UserProfile.vue"
 import CalendarScheduler from "@/views/CalendarScheduler.vue"
 import HomePage from "@/views/HomePage.vue"
 import CreateLessonPlan from "@/views/CreateLessonPlan.vue"
+import ManageUsers from "@/views/ManageUsers.vue"
+import DataCollection from "@/views/DataCollection.vue"
+import GraphData from "@/views/GraphData.vue"
 
 const routes = [
     {
@@ -68,6 +71,22 @@ const routes = [
         name: 'CreateLessonPlan',
         component: CreateLessonPlan
 
+    },
+    {
+        path: '/ManageUsers',
+        name: 'ManageUsers',
+        component: ManageUsers
+
+    },
+    {
+        path: '/DataCollection',
+        name: 'DataCollection',
+        component: DataCollection
+    },
+    {
+        path: '/GraphData',
+        name: 'GraphData',
+        component: GraphData
     }
 ]
 

@@ -1,4 +1,4 @@
-const { construct } = require("core-js/fn/reflect");
+
 
 class CalendarEvent {
     constructor(data) {

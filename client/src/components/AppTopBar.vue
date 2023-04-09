@@ -29,6 +29,9 @@
 		<div class="nav-bar-links" @click="navigateProfile">
 			Profile
 		</div>
+		<div class="nav-bar-links" @click="navigateManageUsers">
+			Manage Users
+		</div>
 	</div>
 </template>
 
@@ -52,6 +55,9 @@ export default {
 	methods: {
 		navigateClientLookUp() {
 			this.$router.push("/ClientLookUp");
+		},
+		navigateManageUsers(){
+			this.$router.push("/ManageUsers");
 		},
 		navigateCreateClient() {
 			this.$router.push("/CreateClient");

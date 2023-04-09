@@ -4,6 +4,8 @@
 		<div>Profile</div>
 		<div class="navigate" @click="navigateCalendar">Set Schedule</div>
 		<div class="navigate" @click="navigateCreateLessonPlan" >Create Lesson Plan</div>
+		<div class="navigate" @click="navigateDataCollection" >Data Collection</div>
+		<div class="navigate" @click="navigateGraphData" >Graph Data</div>
 		<div class="profileInfo">
 			<div>Name: 
         {{profile.firstName}} 
@@ -41,6 +43,12 @@ export default {
 		navigateCreateLessonPlan() {
 			this.$router.push("/CreateLessonPlan");
 		},
+		navigateDataCollection(){
+			this.$router.push("/DataCollection");
+		},
+		navigateGraphData(){
+			this.$router.push("/GraphData");
+		}
 	},
 	components: {
 		AppTopBar,

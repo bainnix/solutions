@@ -1,6 +1,6 @@
 <template>
 	<div class="frequencyContainer">
-        <div>Frequency Tracker</div>
+        <div>{{name }}</div>
 		<div>Occurences: {{count}}</div>
 		<button @click="increment">increment count</button>
 		<button @click="decrement">decrement count</button>		
